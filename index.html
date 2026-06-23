@@ -7,8 +7,40 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/exercises.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 20px;
+            background: #1f1f1f;
+            color: #f3f4f6;
+            border-left: 4px solid #9ca3af;
+            border-radius: 8px;
+            z-index: 10000;
+            transform: translateX(120%);
+            transition: transform 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        }
+        .notification.show { transform: translateX(0); }
+        .notification.success { border-left-color: #10b981; }
+        .notification.error { border-left-color: #dc2626; }
+        .notification.info { border-left-color: #3b82f6; }
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            top: -10px;
+            z-index: 9999;
+            animation: fall 5s linear forwards;
+        }
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+    </style>
 </head>
 <body>
+    <!-- Header -->
     <header>
         <div class="container">
             <div class="header-content">
@@ -18,10 +50,10 @@
                 </a>
                 <nav>
                     <ul>
-                        <li><a href="#home" class="nav-link active">Главная</a></li>
-                        <li><a href="#languages" class="nav-link">Языки</a></li>
-                        <li><a href="#exercises" class="nav-link">Упражнения</a></li>
-                        <li><a href="#dashboard" class="nav-link">Прогресс</a></li>
+                        <li><a href="#home" class="nav-link" data-section="home">Главная</a></li>
+                        <li><a href="#languages" class="nav-link" data-section="languages">Языки</a></li>
+                        <li><a href="#exercises" class="nav-link" data-section="exercises">Упражнения</a></li>
+                        <li><a href="#dashboard" class="nav-link" data-section="dashboard">Прогресс</a></li>
                     </ul>
                 </nav>
                 <div class="user-actions">
@@ -35,12 +67,13 @@
         </div>
     </header>
 
+    <!-- Mobile Menu -->
     <div class="mobile-menu">
         <div class="mobile-menu-content">
-            <a href="#home" class="mobile-nav-link active">Главная</a>
-            <a href="#languages" class="mobile-nav-link">Языки</a>
-            <a href="#exercises" class="mobile-nav-link">Упражнения</a>
-            <a href="#dashboard" class="mobile-nav-link">Прогресс</a>
+            <a href="#home" class="mobile-nav-link" data-section="home">Главная</a>
+            <a href="#languages" class="mobile-nav-link" data-section="languages">Языки</a>
+            <a href="#exercises" class="mobile-nav-link" data-section="exercises">Упражнения</a>
+            <a href="#dashboard" class="mobile-nav-link" data-section="dashboard">Прогресс</a>
             <div class="mobile-auth">
                 <button class="btn btn-outline" id="mobile-login-btn">Войти</button>
                 <button class="btn btn-primary" id="mobile-register-btn">Регистрация</button>
@@ -48,47 +81,25 @@
         </div>
     </div>
 
+    <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
                     <h1>Изучайте языки с <span class="highlight">удовольствием</span></h1>
-                    <p>Интерактивные упражнения, персонализированные уроки и отслеживание прогресса помогут вам достичь продвинутому владению языком быстрее, чем когда-либо.</p>
+                    <p>Интерактивные упражнения, персонализированные уроки и отслеживание прогресса помогут вам достичь fluency быстрее, чем когда-либо.</p>
                     <div class="hero-btns">
                         <button class="btn btn-accent btn-large" id="start-learning-btn">Начать обучение</button>
                         <button class="btn btn-outline btn-large" id="learn-more-btn">Узнать больше</button>
                     </div>
                     <div class="hero-stats">
-                        <div class="stat">
-                            <span class="stat-number">50,000+</span>
-                            <span class="stat-label">учеников</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">12</span>
-                            <span class="stat-label">языков</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">96%</span>
-                            <span class="stat-label">успешных результатов</span>
-                        </div>
+                        <div class="stat"><span class="stat-number">50,000+</span><span class="stat-label">учеников</span></div>
+                        <div class="stat"><span class="stat-number">12</span><span class="stat-label">языков</span></div>
+                        <div class="stat"><span class="stat-number">96%</span><span class="stat-label">успешных результатов</span></div>
                     </div>
                 </div>
                 <div class="hero-image">
-                    <div class="floating-card card-1">
-                        <i class="fas fa-comments"></i>
-                        <span>Разговорная практика</span>
-                    </div>
-                    <div class="floating-card card-2">
-                        <i class="fas fa-headphones"></i>
-                        <span>Аудирование</span>
-                    </div>
-                    <div class="floating-card card-3">
-                        <i class="fas fa-gamepad"></i>
-                        <span>Игровые упражнения</span>
-                    </div>
-                    <div class="main-hero-image">
-                        <i class="fas fa-globe-americas"></i>
-                    </div>
+                    <div class="main-hero-image"><i class="fas fa-globe-americas"></i></div>
                 </div>
             </div>
         </div>
@@ -97,128 +108,32 @@
     <!-- Features Section -->
     <section class="features">
         <div class="container">
-            <div class="section-title">
-                <h2>Почему выбирают LinguaFlow?</h2>
-                <p>Наша платформа предлагает уникальный подход к изучению языков через интерактивные упражнения и персонализированные уроки.</p>
-            </div>
+            <div class="section-title"><h2>Почему выбирают LinguaFlow?</h2><p>Наша платформа предлагает уникальный подход к изучению языков через интерактивные упражнения и персонализированные уроки.</p></div>
             <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-bullseye"></i>
-                    </div>
-                    <h3>Персонализированное обучение</h3>
-                    <p>Алгоритмы подстраивают сложность и содержание уроков под ваш уровень и цели.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-sync-alt"></i>
-                    </div>
-                    <h3>Интерактивные упражнения</h3>
-                    <p>Разнообразные форматы заданий: выбор ответа, заполнение пропусков, аудирование и многое другое.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Отслеживание прогресса</h3>
-                    <p>Детальная статистика и аналитика помогают видеть ваш прогресс и области для улучшения.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <h3>AI-помощник</h3>
-                    <p>Наш искусственный интеллект помогает исправлять ошибки и дает персонализированные рекомендации.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3>Мобильное приложение</h3>
-                    <p>Занимайтесь в любом месте с нашим приложением для iOS и Android.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3>Сообщество</h3>
-                    <p>Общайтесь с другими учениками и носителями языка для практики.</p>
-                </div>
+                <div class="feature-card"><div class="feature-icon"><i class="fas fa-bullseye"></i></div><h3>Персонализированное обучение</h3><p>Алгоритмы подстраивают сложность и содержание уроков под ваш уровень и цели.</p></div>
+                <div class="feature-card"><div class="feature-icon"><i class="fas fa-sync-alt"></i></div><h3>Интерактивные упражнения</h3><p>Разнообразные форматы заданий: выбор ответа, заполнение пропусков, аудирование и многое другое.</p></div>
+                <div class="feature-card"><div class="feature-icon"><i class="fas fa-chart-line"></i></div><h3>Отслеживание прогресса</h3><p>Детальная статистика и аналитика помогают видеть ваш прогресс и области для улучшения.</p></div>
             </div>
         </div>
     </section>
 
+    <!-- Languages Section -->
     <section class="languages" id="languages">
         <div class="container">
-            <div class="section-title">
-                <h2>Изучайте популярные языки</h2>
-                <p>Выберите язык, который хотите изучать, и начните свой путь к продвинотуму владению языком.</p>
-            </div>
+            <div class="section-title"><h2>Изучайте популярные языки</h2><p>Выберите язык, который хотите изучать, и начните свой путь к fluency.</p></div>
             <div class="languages-grid">
                 <div class="language-card" data-language="english">
-                    <div class="language-flag">
-                        <i class="fas fa-flag-usa"></i>
-                    </div>
+                    <div class="language-flag"><i class="fas fa-flag-usa"></i></div>
                     <h3>Английский</h3>
                     <p>1.5 млрд носителей</p>
-                    <div class="language-level">
-                        <span>Начальный - Продвинутый</span>
-                    </div>
+                    <div class="language-level"><span>Начальный - Продвинутый</span></div>
                     <button class="btn btn-outline language-btn">Выбрать</button>
                 </div>
                 <div class="language-card" data-language="spanish">
-                    <div class="language-flag">
-                        <i class="fas fa-flag"></i>
-                    </div>
+                    <div class="language-flag"><i class="fas fa-flag"></i></div>
                     <h3>Испанский</h3>
                     <p>580 млн носителей</p>
-                    <div class="language-level">
-                        <span>Начальный - Продвинутый</span>
-                    </div>
-                    <button class="btn btn-outline language-btn">Выбрать</button>
-                </div>
-                <div class="language-card" data-language="french">
-                    <div class="language-flag">
-                        <i class="fas fa-flag"></i>
-                    </div>
-                    <h3>Французский</h3>
-                    <p>280 млн носителей</p>
-                    <div class="language-level">
-                        <span>Начальный - Средний</span>
-                    </div>
-                    <button class="btn btn-outline language-btn">Выбрать</button>
-                </div>
-                <div class="language-card" data-language="german">
-                    <div class="language-flag">
-                        <i class="fas fa-flag"></i>
-                    </div>
-                    <h3>Немецкий</h3>
-                    <p>130 млн носителей</p>
-                    <div class="language-level">
-                        <span>Начальный - Средний</span>
-                    </div>
-                    <button class="btn btn-outline language-btn">Выбрать</button>
-                </div>
-                <div class="language-card" data-language="italian">
-                    <div class="language-flag">
-                        <i class="fas fa-flag"></i>
-                    </div>
-                    <h3>Итальянский</h3>
-                    <p>85 млн носителей</p>
-                    <div class="language-level">
-                        <span>Начальный - Средний</span>
-                    </div>
-                    <button class="btn btn-outline language-btn">Выбрать</button>
-                </div>
-                <div class="language-card" data-language="japanese">
-                    <div class="language-flag">
-                        <i class="fas fa-flag"></i>
-                    </div>
-                    <h3>Японский</h3>
-                    <p>125 млн носителей</p>
-                    <div class="language-level">
-                        <span>Начальный - Средний</span>
-                    </div>
+                    <div class="language-level"><span>Начальный - Продвинутый</span></div>
                     <button class="btn btn-outline language-btn">Выбрать</button>
                 </div>
             </div>
@@ -228,448 +143,229 @@
     <!-- Exercises Section -->
     <section class="exercises" id="exercises">
         <div class="container">
-            <div class="section-title">
-                <h2>Интерактивные упражнения</h2>
-                <p>Практикуйтесь с различными типами упражнений для улучшения всех языковых навыков.</p>
-            </div>
-            
+            <div class="section-title"><h2>Интерактивные упражнения</h2><p>Практикуйтесь с различными типами упражнений для улучшения всех языковых навыков.</p></div>
             <div class="exercise-tabs">
-                <button class="exercise-tab active" data-tab="multiple-choice">
-                    <i class="fas fa-list-ul"></i>
-                    <span>Множественный выбор</span>
-                </button>
-                <button class="exercise-tab" data-tab="fill-blanks">
-                    <i class="fas fa-edit"></i>
-                    <span>Заполнение пропусков</span>
-                </button>
-                <button class="exercise-tab" data-tab="matching">
-                    <i class="fas fa-exchange-alt"></i>
-                    <span>Сопоставление</span>
-                </button>
-                <button class="exercise-tab" data-tab="listening">
-                    <i class="fas fa-headphones"></i>
-                    <span>Аудирование</span>
-                </button>
+                <button class="exercise-tab active" data-tab="multiple-choice"><i class="fas fa-list-ul"></i><span>Множественный выбор</span></button>
+                <button class="exercise-tab" data-tab="fill-blanks"><i class="fas fa-edit"></i><span>Заполнение пропусков</span></button>
+                <button class="exercise-tab" data-tab="matching"><i class="fas fa-exchange-alt"></i><span>Сопоставление</span></button>
+                <button class="exercise-tab" data-tab="listening"><i class="fas fa-headphones"></i><span>Аудирование</span></button>
             </div>
-            
+
             <div class="exercise-content active" id="multiple-choice">
-                <div class="exercise-header">
-                    <h3 class="exercise-title">Упражнение: Множественный выбор</h3>
-                    <div class="exercise-progress">
-                        <span class="progress-text">Вопрос <span id="current-question">1</span> из <span id="total-questions">5</span></span>
-                        <div class="progress-bar">
-                            <div class="progress" id="multiple-choice-progress"></div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="exercise-body">
-                    <p class="exercise-question" id="multiple-choice-question">Выберите правильный перевод слова "house":</p>
-                    <div class="options" id="multiple-choice-options">
-                    </div>
-                </div>
-                
-                <div class="exercise-footer">
-                    <div class="exercise-actions">
-                        <button class="btn btn-outline" id="check-answer" disabled>Проверить</button>
-                        <button class="btn btn-primary" id="next-question">Следующий вопрос</button>
-                    </div>
-                    <div class="exercise-feedback" id="multiple-choice-feedback"></div>
-                </div>
+                <div class="exercise-header"><h3 class="exercise-title">Упражнение: Множественный выбор</h3><div class="exercise-progress"><span class="progress-text">Вопрос <span id="current-question">1</span> из <span id="total-questions">5</span></span><div class="progress-bar"><div class="progress" id="multiple-choice-progress"></div></div></div></div>
+                <div class="exercise-body"><p class="exercise-question" id="multiple-choice-question">Загрузка...</p><div class="options" id="multiple-choice-options"></div></div>
+                <div class="exercise-footer"><div class="exercise-actions"><button class="btn btn-outline" id="check-answer" disabled>Проверить</button><button class="btn btn-primary" id="next-question">Следующий вопрос</button></div><div class="exercise-feedback" id="multiple-choice-feedback"></div></div>
             </div>
-            
+
             <div class="exercise-content" id="fill-blanks">
-                <div class="exercise-header">
-                    <h3 class="exercise-title">Упражнение: Заполнение пропусков</h3>
-                    <div class="exercise-progress">
-                        <span class="progress-text">Вопрос <span id="current-blank">1</span> из <span id="total-blanks">5</span></span>
-                        <div class="progress-bar">
-                            <div class="progress" id="fill-blanks-progress"></div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="exercise-body">
-                    <p class="exercise-question" id="fill-blanks-question">Заполните пропуск в предложении: "The cat is ___ the table."</p>
-                    <div class="fill-input">
-                        <input type="text" placeholder="Введите слово" id="blank-input">
-                    </div>
-                </div>
-                
-                <div class="exercise-footer">
-                    <div class="exercise-actions">
-                        <button class="btn btn-outline" id="check-blank">Проверить</button>
-                        <button class="btn btn-primary" id="next-blank">Следующий вопрос</button>
-                    </div>
-                    <div class="exercise-feedback" id="fill-blanks-feedback"></div>
-                </div>
+                <div class="exercise-header"><h3 class="exercise-title">Упражнение: Заполнение пропусков</h3><div class="exercise-progress"><span class="progress-text">Вопрос <span id="current-blank">1</span> из <span id="total-blanks">5</span></span><div class="progress-bar"><div class="progress" id="fill-blanks-progress"></div></div></div></div>
+                <div class="exercise-body"><p class="exercise-question" id="fill-blanks-question">Загрузка...</p><div class="fill-input"><input type="text" placeholder="Введите слово" id="blank-input"></div></div>
+                <div class="exercise-footer"><div class="exercise-actions"><button class="btn btn-outline" id="check-blank">Проверить</button><button class="btn btn-primary" id="next-blank">Следующий вопрос</button></div><div class="exercise-feedback" id="fill-blanks-feedback"></div></div>
             </div>
-            
+
             <div class="exercise-content" id="matching">
-                <div class="exercise-header">
-                    <h3 class="exercise-title">Упражнение: Сопоставление</h3>
-                    <div class="exercise-progress">
-                        <span class="progress-text">Вопрос <span id="current-matching">1</span> из <span id="total-matchings">5</span></span>
-                        <div class="progress-bar">
-                            <div class="progress" id="matching-progress"></div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="exercise-body">
-                    <p class="exercise-question">Сопоставьте слова с их переводами:</p>
-                    <div class="matching-pairs" id="matching-pairs">
-                        <!-- Matching pairs will be populated by JavaScript -->
-                    </div>
-                </div>
-                
-                <div class="exercise-footer">
-                    <div class="exercise-actions">
-                        <button class="btn btn-outline" id="check-matching">Проверить</button>
-                        <button class="btn btn-primary" id="next-matching">Следующий вопрос</button>
-                    </div>
-                    <div class="exercise-feedback" id="matching-feedback"></div>
-                </div>
+                <div class="exercise-header"><h3 class="exercise-title">Упражнение: Сопоставление</h3><div class="exercise-progress"><span class="progress-text">Вопрос <span id="current-matching">1</span> из <span id="total-matchings">3</span></span><div class="progress-bar"><div class="progress" id="matching-progress"></div></div></div></div>
+                <div class="exercise-body"><p class="exercise-question">Сопоставьте слова с их переводами:</p><div class="matching-pairs" id="matching-pairs"></div></div>
+                <div class="exercise-footer"><div class="exercise-actions"><button class="btn btn-outline" id="check-matching">Проверить</button><button class="btn btn-primary" id="next-matching">Следующий вопрос</button></div><div class="exercise-feedback" id="matching-feedback"></div></div>
             </div>
-            
+
             <div class="exercise-content" id="listening">
-                <div class="exercise-header">
-                    <h3 class="exercise-title">Упражнение: Аудирование</h3>
-                    <div class="exercise-progress">
-                        <span class="progress-text">Вопрос <span id="current-listening">1</span> из <span id="total-listenings">5</span></span>
-                        <div class="progress-bar">
-                            <div class="progress" id="listening-progress"></div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="exercise-body">
-                    <p class="exercise-question" id="listening-question">Прослушайте аудио и выберите правильный вариант:</p>
-                    <div class="audio-player">
-                        <button class="btn btn-primary" id="play-audio">
-                            <i class="fas fa-play"></i>
-                            <span>Воспроизвести</span>
-                        </button>
-                        <div class="audio-visualizer">
-                            <div class="audio-bar"></div>
-                            <div class="audio-bar"></div>
-                            <div class="audio-bar"></div>
-                            <div class="audio-bar"></div>
-                            <div class="audio-bar"></div>
-                            <div class="audio-bar"></div>
-                            <div class="audio-bar"></div>
-                            <div class="audio-bar"></div>
-                        </div>
-                    </div>
-                    <div class="options" id="listening-options">
-                        <!-- Options will be populated by JavaScript -->
-                    </div>
-                </div>
-                
-                <div class="exercise-footer">
-                    <div class="exercise-actions">
-                        <button class="btn btn-outline" id="check-listening" disabled>Проверить</button>
-                        <button class="btn btn-primary" id="next-listening">Следующий вопрос</button>
-                    </div>
-                    <div class="exercise-feedback" id="listening-feedback"></div>
-                </div>
+                <div class="exercise-header"><h3 class="exercise-title">Упражнение: Аудирование</h3><div class="exercise-progress"><span class="progress-text">Вопрос <span id="current-listening">1</span> из <span id="total-listenings">5</span></span><div class="progress-bar"><div class="progress" id="listening-progress"></div></div></div></div>
+                <div class="exercise-body"><p class="exercise-question" id="listening-question">Загрузка...</p><div class="audio-player"><button class="btn btn-primary" id="play-audio"><i class="fas fa-play"></i><span>Воспроизвести</span></button><div class="audio-visualizer"><div class="audio-bar"></div><div class="audio-bar"></div><div class="audio-bar"></div><div class="audio-bar"></div><div class="audio-bar"></div><div class="audio-bar"></div><div class="audio-bar"></div><div class="audio-bar"></div></div></div><div class="options" id="listening-options"></div></div>
+                <div class="exercise-footer"><div class="exercise-actions"><button class="btn btn-outline" id="check-listening" disabled>Проверить</button><button class="btn btn-primary" id="next-listening">Следующий вопрос</button></div><div class="exercise-feedback" id="listening-feedback"></div></div>
             </div>
         </div>
     </section>
 
+    <!-- Dashboard Section -->
     <section class="dashboard" id="dashboard">
         <div class="container">
-            <div class="section-title">
-                <h2>Ваш прогресс</h2>
-                <p>Отслеживайте свои успехи в изучении языков</p>
+            <div class="section-title"><h2>Ваш прогресс</h2><p>Отслеживайте свои успехи в изучении языков</p></div>
+            <div class="stats">
+                <div class="stat-card"><div class="stat-icon"><i class="fas fa-fire"></i></div><div class="stat-value" id="streak-days">0</div><div class="stat-label">Дней подряд</div></div>
+                <div class="stat-card"><div class="stat-icon"><i class="fas fa-check-circle"></i></div><div class="stat-value" id="accuracy-percent">0%</div><div class="stat-label">Точность ответов</div></div>
+                <div class="stat-card"><div class="stat-icon"><i class="fas fa-book"></i></div><div class="stat-value" id="words-learned">0</div><div class="stat-label">Выученных слов</div></div>
+                <div class="stat-card"><div class="stat-icon"><i class="fas fa-chart-line"></i></div><div class="stat-value" id="current-level">A1</div><div class="stat-label">Текущий уровень</div></div>
             </div>
-            
-            <div class="dashboard-content">
-                <div class="stats">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-fire"></i>
+            <div class="dashboard-grid">
+                <div class="dashboard-card recent-activities"><h3>Последняя активность</h3><div class="activity-list" id="activity-list"></div></div>
+                <div class="dashboard-card language-progress"><h3>Прогресс по языкам</h3><div class="progress-chart"><div class="language-progress-item"><div class="language-name">Английский</div><div class="progress-bar"><div class="progress" style="width: 0%"></div></div><div class="progress-percent">0%</div></div><div class="language-progress-item"><div class="language-name">Испанский</div><div class="progress-bar"><div class="progress" style="width: 0%"></div></div><div class="progress-percent">0%</div></div></div></div>
+                <div class="dashboard-card weekly-goal">
+                    <h3>Цель на неделю</h3>
+                    <div class="goal-progress">
+                        <div class="goal-text">
+                            <span class="goal-current">0</span>
+                            <span class="goal-separator">/</span>
+                            <span class="goal-total">7</span>
+                            <span class="goal-label">дней</span>
                         </div>
-                        <div class="stat-value" id="streak-days">12</div>
-                        <div class="stat-label">Дней подряд</div>
+                        <div class="goal-visual"></div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                        <div class="stat-value" id="accuracy-percent">87%</div>
-                        <div class="stat-label">Точность ответов</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-book"></i>
-                        </div>
-                        <div class="stat-value" id="words-learned">156</div>
-                        <div class="stat-label">Выученных слов</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <div class="stat-value" id="current-level">A2</div>
-                        <div class="stat-label">Текущий уровень</div>
-                    </div>
+                    <!-- Кнопка "Изменить цель" удалена -->
                 </div>
-                
-                <div class="dashboard-grid">
-                    <div class="dashboard-card recent-activities">
-                        <h3>Последняя активность</h3>
-                        <div class="activity-list" id="activity-list">
-                            <!-- Activities will be populated by JavaScript -->
-                        </div>
-                    </div>
-                    
-                    <div class="dashboard-card language-progress">
-                        <h3>Прогресс по языкам</h3>
-                        <div class="progress-chart">
-                            <div class="language-progress-item">
-                                <div class="language-name">Английский</div>
-                                <div class="progress-bar">
-                                    <div class="progress" style="width: 75%"></div>
-                                </div>
-                                <div class="progress-percent">75%</div>
-                            </div>
-                            <div class="language-progress-item">
-                                <div class="language-name">Испанский</div>
-                                <div class="progress-bar">
-                                    <div class="progress" style="width: 40%"></div>
-                                </div>
-                                <div class="progress-percent">40%</div>
-                            </div>
-                            <div class="language-progress-item">
-                                <div class="language-name">Французский</div>
-                                <div class="progress-bar">
-                                    <div class="progress" style="width: 20%"></div>
-                                </div>
-                                <div class="progress-percent">20%</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="dashboard-card weekly-goal">
-                        <h3>Цель на неделю</h3>
-                        <div class="goal-progress">
-                            <div class="goal-text">
-                                <span class="goal-current">4</span>
-                                <span class="goal-separator">/</span>
-                                <span class="goal-total">7</span>
-                                <span class="goal-label">дней</span>
-                            </div>
-                            <div class="goal-visual">
-                                <div class="goal-day completed">Пн</div>
-                                <div class="goal-day completed">Вт</div>
-                                <div class="goal-day completed">Ср</div>
-                                <div class="goal-day completed">Чт</div>
-                                <div class="goal-day">Пт</div>
-                                <div class="goal-day">Сб</div>
-                                <div class="goal-day">Вс</div>
-                            </div>
-                        </div>
-                        <button class="btn btn-primary btn-small" id="set-goal-btn">Изменить цель</button>
-                    </div>
-                    
-                    <div class="dashboard-card achievements">
-                        <h3>Достижения</h3>
-                        <div class="achievements-list">
-                            <div class="achievement earned">
-                                <div class="achievement-icon">
-                                    <i class="fas fa-seedling"></i>
-                                </div>
-                                <div class="achievement-info">
-                                    <div class="achievement-name">Новичок</div>
-                                    <div class="achievement-desc">Завершите первый урок</div>
-                                </div>
-                            </div>
-                            <div class="achievement earned">
-                                <div class="achievement-icon">
-                                    <i class="fas fa-fire"></i>
-                                </div>
-                                <div class="achievement-info">
-                                    <div class="achievement-name">Страсть к учебе</div>
-                                    <div class="achievement-desc">Занимайтесь 7 дней подряд</div>
-                                </div>
-                            </div>
-                            <div class="achievement">
-                                <div class="achievement-icon">
-                                    <i class="fas fa-brain"></i>
-                                </div>
-                                <div class="achievement-info">
-                                    <div class="achievement-name">Словарный запас</div>
-                                    <div class="achievement-desc">Выучите 100 слов</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div class="dashboard-card achievements"><h3>Достижения</h3><div class="achievements-list" id="achievements-list">Загружаются...</div></div>
             </div>
         </div>
     </section>
 
+    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-column">
-                    <h3>LinguaFlow</h3>
-                    <ul>
-                        <li><a href="#">О нас</a></li>
-                        <li><a href="#">Преподаватели</a></li>
-                        <li><a href="#">Вакансии</a></li>
-                        <li><a href="#">Блог</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Продукт</h3>
-                    <ul>
-                        <li><a href="#">Функции</a></li>
-                        <li><a href="#">Цены</a></li>
-                        <li><a href="#">Приложения</a></li>
-                        <li><a href="#">Бизнес</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Поддержка</h3>
-                    <ul>
-                        <li><a href="#">Помощь</a></li>
-                        <li><a href="#">Свяжитесь с нами</a></li>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Сообщество</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Юридическая информация</h3>
-                    <ul>
-                        <li><a href="#">Условия использования</a></li>
-                        <li><a href="#">Политика конфиденциальности</a></li>
-                        <li><a href="#">Политика cookie</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column newsletter">
-                    <h3>Подписка на новости</h3>
-                    <p>Подпишитесь, чтобы получать советы по изучению языков и информацию о новых функциях.</p>
-                    <div class="newsletter-form">
-                        <input type="email" placeholder="Ваш email">
-                        <button class="btn btn-primary">Подписаться</button>
-                    </div>
-                </div>
+                <div class="footer-column"><h3>LinguaFlow</h3><ul><li><a href="#">О нас</a></li><li><a href="#">Преподаватели</a></li><li><a href="#">Блог</a></li></ul></div>
+                <div class="footer-column"><h3>Продукт</h3><ul><li><a href="#">Функции</a></li><li><a href="#">Приложения</a></li><li><a href="#">Бизнес</a></li></ul></div>
+                <div class="footer-column"><h3>Поддержка</h3><ul><li><a href="#">Помощь</a></li><li><a href="#">FAQ</a></li><li><a href="#">Сообщество</a></li></ul></div>
+                <div class="footer-column newsletter"><h3>Подписка на новости</h3><p>Подпишитесь, чтобы получать советы по изучению языков и информацию о новых функциях.</p><div class="newsletter-form"><input type="email" placeholder="Ваш email"><button class="btn btn-primary">Подписаться</button></div></div>
             </div>
-            <div class="copyright">
-                <p>&copy; 2023 LinguaFlow. Все права защищены.</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                </div>
-            </div>
+            <div class="copyright"><p>© 2025 LinguaFlow. Все права защищены.</p><div class="social-links"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div></div>
         </div>
     </footer>
 
+    <!-- Login/Register Modals -->
     <div class="modal" id="login-modal">
         <div class="modal-content">
-            <div class="modal-header">
-                <h2>Вход в аккаунт</h2>
-                <button class="close-modal">&times;</button>
-            </div>
+            <div class="modal-header"><h2>Вход в аккаунт</h2><button class="close-modal" data-modal="login-modal">&times;</button></div>
             <div class="modal-body">
                 <form id="login-form">
-                    <div class="form-group">
-                        <label for="login-email">Email</label>
-                        <input type="email" id="login-email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="login-password">Пароль</label>
-                        <input type="password" id="login-password" required>
-                    </div>
+                    <div class="form-group"><label>Email</label><input type="email" id="login-email" required></div>
+                    <div class="form-group"><label>Пароль</label><input type="password" id="login-password" required></div>
                     <button type="submit" class="btn btn-primary btn-full">Войти</button>
                 </form>
-                <div class="auth-links">
-                    <a href="#">Забыли пароль?</a>
-                    <span>Нет аккаунта? <a href="#" id="show-register">Зарегистрироваться</a></span>
-                </div>
+                <div class="auth-links"><a href="#">Забыли пароль?</a><span>Нет аккаунта? <a href="#" id="show-register">Зарегистрироваться</a></span></div>
             </div>
         </div>
     </div>
 
     <div class="modal" id="register-modal">
         <div class="modal-content">
-            <div class="modal-header">
-                <h2>Регистрация</h2>
-                <button class="close-modal">&times;</button>
-            </div>
+            <div class="modal-header"><h2>Регистрация</h2><button class="close-modal" data-modal="register-modal">&times;</button></div>
             <div class="modal-body">
                 <form id="register-form">
-                    <div class="form-group">
-                        <label for="register-name">Имя</label>
-                        <input type="text" id="register-name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="register-email">Email</label>
-                        <input type="email" id="register-email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="register-password">Пароль</label>
-                        <input type="password" id="register-password" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="register-language">Язык для изучения</label>
-                        <select id="register-language">
-                            <option value="english">Английский</option>
-                            <option value="spanish">Испанский</option>
-                            <option value="french">Французский</option>
-                            <option value="german">Немецкий</option>
-                            <option value="italian">Итальянский</option>
-                            <option value="japanese">Японский</option>
-                        </select>
-                    </div>
+                    <div class="form-group"><label>Имя</label><input type="text" id="register-name" required></div>
+                    <div class="form-group"><label>Email</label><input type="email" id="register-email" required></div>
+                    <div class="form-group"><label>Пароль</label><input type="password" id="register-password" required></div>
+                    <div class="form-group"><label>Язык для изучения</label><select id="register-language"><option value="english">Английский</option><option value="spanish">Испанский</option></select></div>
                     <button type="submit" class="btn btn-primary btn-full">Зарегистрироваться</button>
                 </form>
-                <div class="auth-links">
-                    <span>Уже есть аккаунт? <a href="#" id="show-login">Войти</a></span>
-                </div>
+                <div class="auth-links"><span>Уже есть аккаунт? <a href="#" id="show-login">Войти</a></span></div>
             </div>
         </div>
     </div>
 
+    <!-- Completion Modal -->
     <div class="modal" id="completion-modal">
         <div class="modal-content completion-content">
-            <div class="completion-header">
-                <i class="fas fa-trophy"></i>
-                <h2>Упражнение завершено!</h2>
-            </div>
+            <div class="completion-header"><i class="fas fa-trophy"></i><h2>Упражнение завершено!</h2></div>
             <div class="completion-body">
                 <div class="completion-stats">
-                    <div class="completion-stat">
-                        <div class="stat-value" id="completion-score">80%</div>
-                        <div class="stat-label">Правильных ответов</div>
-                    </div>
-                    <div class="completion-stat">
-                        <div class="stat-value" id="completion-time">4:30</div>
-                        <div class="stat-label">Время выполнения</div>
-                    </div>
-                    <div class="completion-stat">
-                        <div class="stat-value" id="completion-xp">150</div>
-                        <div class="stat-label">Получено опыта</div>
-                    </div>
+                    <div class="completion-stat"><div class="stat-value" id="completion-score">0%</div><div class="stat-label">Правильных ответов</div></div>
+                    <div class="completion-stat"><div class="stat-value" id="completion-time">0:00</div><div class="stat-label">Время выполнения</div></div>
+                    <div class="completion-stat"><div class="stat-value" id="completion-xp">0</div><div class="stat-label">Получено опыта</div></div>
                 </div>
-                <div class="completion-actions">
-                    <button class="btn btn-outline" id="review-answers">Просмотреть ответы</button>
-                    <button class="btn btn-primary" id="next-exercise">Следующее упражнение</button>
+                <div class="completion-actions"><button class="btn btn-outline" id="review-answers">Просмотреть ответы</button><button class="btn btn-primary" id="next-exercise">Следующее упражнение</button></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Learn More Modal -->
+    <div class="modal" id="learn-more-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>О LinguaFlow</h2>
+                <button class="close-modal" data-modal="learn-more-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h3>Ваш личный помощник в изучении языков</h3>
+                <p><strong>LinguaFlow</strong> — это современная образовательная платформа, созданная для эффективного и увлекательного изучения иностранных языков. Мы предлагаем:</p>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 12px;">✅ <strong>Интерактивные упражнения</strong> – 4 типа заданий (множественный выбор, заполнение пропусков, сопоставление, аудирование) для развития всех языковых навыков.</li>
+                    <li style="margin-bottom: 12px;">✅ <strong>Персонализированный подход</strong> – выбирайте язык (английский или испанский) и уровень сложности, система адаптируется под вас.</li>
+                    <li style="margin-bottom: 12px;">✅ <strong>Система мотивации</strong> – зарабатывайте достижения, отслеживайте прогресс, ставьте цели и видите свой рост.</li>
+                    <li style="margin-bottom: 12px;">✅ <strong>Доступность везде</strong> – сайт адаптирован для всех устройств, а ваш прогресс синхронизируется через облако Firebase.</li>
+                </ul>
+                <p style="margin-top: 15px;">Присоединяйтесь к сообществу LinguaFlow и начните свой путь к свободному владению языком уже сегодня!</p>
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="btn btn-primary" id="close-learn-more-btn">Закрыть</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="loading-spinner" id="loading-spinner">
-        <div class="spinner"></div>
+    <!-- Admin link container (hidden by default) -->
+    <div id="adminLinkContainer" style="display: none; position: fixed; bottom: 20px; right: 20px; z-index: 999;">
+        <a href="admin.html" style="background: #dc2626; color: white; padding: 10px 15px; border-radius: 30px; text-decoration: none; font-size: 14px; box-shadow: 0 2px 10px rgba(0,0,0,0.3);">🔧 Админка</a>
     </div>
 
-    <script src="js/app.js"></script>
-    <script src="js/exercises.js"></script>
-    <script src="js/dashboard.js"></script>
+    <!-- Loading spinner -->
+    <div class="loading-spinner" id="loading-spinner"><div class="spinner"></div></div>
+
+    <!-- Firebase import map -->
+    <script type="importmap">
+        {
+            "imports": {
+                "firebase/app": "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js",
+                "firebase/firestore": "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js",
+                "firebase/auth": "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js"
+            }
+        }
+    </script>
+    <script type="module" src="js/firebase-config.js"></script>
+    <script type="module" src="js/dashboard.js"></script>
+    <script type="module" src="js/exercises.js"></script>
+    <script type="module" src="js/app.js"></script>
+
+    <!-- Скрипт для динамической подсветки навигации при скролле -->
+    <script>
+        (function() {
+            function updateActiveNavOnScroll() {
+                const sections = ['home', 'languages', 'exercises', 'dashboard'];
+                let currentSection = 'home';
+                for (let s of sections) {
+                    const el = document.getElementById(s);
+                    if (el) {
+                        const rect = el.getBoundingClientRect();
+                        if (rect.top <= 150 && rect.bottom >= 150) {
+                            currentSection = s;
+                            break;
+                        }
+                    }
+                }
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    const sec = link.getAttribute('data-section');
+                    if (sec === currentSection) link.classList.add('active');
+                    else link.classList.remove('active');
+                });
+                document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                    const sec = link.getAttribute('data-section');
+                    if (sec === currentSection) link.classList.add('active');
+                    else link.classList.remove('active');
+                });
+            }
+            function setupNavClickHandlers() {
+                document.querySelectorAll('.nav-link, .mobile-nav-link').forEach(link => {
+                    link.addEventListener('click', () => setTimeout(updateActiveNavOnScroll, 100));
+                });
+            }
+            window.addEventListener('load', () => { updateActiveNavOnScroll(); setupNavClickHandlers(); });
+            window.addEventListener('scroll', updateActiveNavOnScroll);
+            window.addEventListener('resize', updateActiveNavOnScroll);
+        })();
+    </script>
+
+    <script>
+        // ===== Закрытие модального окна "Узнать больше" =====
+        document.addEventListener('DOMContentLoaded', function() {
+            const closeBtn = document.getElementById('close-learn-more-btn');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', function() {
+                    const modal = document.getElementById('learn-more-modal');
+                    if (modal) {
+                        modal.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>

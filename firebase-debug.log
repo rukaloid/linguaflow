@@ -1,0 +1,132 @@
+[debug] [2026-06-19T19:16:51.108Z] ----------------------------------------------------------------------
+[debug] [2026-06-19T19:16:51.117Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Kira8\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js login
+[debug] [2026-06-19T19:16:51.118Z] CLI Version:   15.22.0
+[debug] [2026-06-19T19:16:51.118Z] Platform:      win32
+[debug] [2026-06-19T19:16:51.118Z] Node Version:  v24.17.0
+[debug] [2026-06-19T19:16:51.119Z] Detected Agent: unknown
+[debug] [2026-06-19T19:16:51.119Z] Time:          Fri Jun 19 2026 22:16:51 GMT+0300 (Москва, стандартное время)
+[debug] [2026-06-19T19:16:51.120Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-06-19T19:16:51.126Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[info] i  The Firebase CLI’s MCP server feature can optionally make use of Gemini in Firebase. Learn more about Gemini in Firebase and how it uses your data: https://firebase.google.com/docs/gemini-in-firebase#how-gemini-in-firebase-uses-your-data 
+[debug] [2026-06-19T19:16:51.655Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2026-06-19T19:16:51.656Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[info] 
+[info] i  Firebase optionally collects CLI and Emulator Suite usage and error reporting information to help improve our products. Data is collected in accordance with Google's privacy policy (https://policies.google.com/privacy) and is not used to identify you. 
+[info] 
+[info] i  To change your preferences at any time, run `firebase logout` and `firebase login` again. 
+[info] 
+[info] Visit this URL on this device to log in:
+[info] https://accounts.google.com/o/oauth2/auth?client_id=563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com&scope=email%20openid%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloudplatformprojects.readonly%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Ffirebase%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloud-platform&response_type=code&state=117594755&redirect_uri=http%3A%2F%2Flocalhost%3A9005
+[info] 
+[info] Waiting for authentication...
+[debug] [2026-06-19T19:18:30.327Z] >>> [apiv2][query] POST https://accounts.google.com/o/oauth2/token [none]
+[debug] [2026-06-19T19:18:30.328Z] >>> [apiv2][body] POST https://accounts.google.com/o/oauth2/token [omitted]
+[debug] [2026-06-19T19:18:30.622Z] Token Fetch Error: FirebaseError: FetchError: Invalid response body while trying to fetch https://accounts.google.com/o/oauth2/token: Premature close
+    at RetryOperation._fn (C:\Users\Kira8\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:317:88)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+[error] Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[debug] [2026-06-19T19:18:30.674Z] >>> [apiv2][query] POST https://auth.firebase.tools/attest [none]
+[debug] [2026-06-19T19:18:30.675Z] >>> [apiv2][body] POST https://auth.firebase.tools/attest {"session_id":"b6f395f1-4ff2-4d79-840f-7a92b495320b"}
+[debug] [2026-06-19T19:18:31.255Z] <<< [apiv2][status] POST https://auth.firebase.tools/attest 200
+[debug] [2026-06-19T19:18:31.255Z] <<< [apiv2][body] POST https://auth.firebase.tools/attest {"token":"mXIxVrlPOEXJiIVlUlKM2eVwoXTRZzs1eqMLSQzCcow"}
+[info] 
+[info] To sign in to the Firebase CLI:
+[info] 
+[info] 1. Take note of your session ID:
+[info] 
+[info]    B6F39
+[info] 
+[info] 2. Visit the URL below on any device and follow the instructions to get your code:
+[info] 
+[info]    https://auth.firebase.tools/login?code_challenge=VU3isQryD1qqXs00_ya32zksDmf3sg4b1rsPsZhaB4k&session=b6f395f1-4ff2-4d79-840f-7a92b495320b&attest=mXIxVrlPOEXJiIVlUlKM2eVwoXTRZzs1eqMLSQzCcow
+[info] 
+[info] 3. Paste or enter the authorization code below once you have it:
+[info] 
+[debug] [2026-06-19T19:21:30.848Z] ----------------------------------------------------------------------
+[debug] [2026-06-19T19:21:30.854Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Kira8\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js login
+[debug] [2026-06-19T19:21:30.855Z] CLI Version:   15.22.0
+[debug] [2026-06-19T19:21:30.855Z] Platform:      win32
+[debug] [2026-06-19T19:21:30.856Z] Node Version:  v24.17.0
+[debug] [2026-06-19T19:21:30.856Z] Detected Agent: unknown
+[debug] [2026-06-19T19:21:30.856Z] Time:          Fri Jun 19 2026 22:21:30 GMT+0300 (Москва, стандартное время)
+[debug] [2026-06-19T19:21:30.856Z] ----------------------------------------------------------------------
+[debug] 
+[info] i  The Firebase CLI’s MCP server feature can optionally make use of Gemini in Firebase. Learn more about Gemini in Firebase and how it uses your data: https://firebase.google.com/docs/gemini-in-firebase#how-gemini-in-firebase-uses-your-data 
+[info] 
+[info] i  Firebase optionally collects CLI and Emulator Suite usage and error reporting information to help improve our products. Data is collected in accordance with Google's privacy policy (https://policies.google.com/privacy) and is not used to identify you. 
+[info] 
+[info] i  To change your preferences at any time, run `firebase logout` and `firebase login` again. 
+[info] 
+[info] Visit this URL on this device to log in:
+[info] https://accounts.google.com/o/oauth2/auth?client_id=563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com&scope=email%20openid%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloudplatformprojects.readonly%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Ffirebase%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloud-platform&response_type=code&state=1033258530&redirect_uri=http%3A%2F%2Flocalhost%3A9005
+[info] 
+[info] Waiting for authentication...
+[debug] [2026-06-19T19:21:46.761Z] >>> [apiv2][query] POST https://accounts.google.com/o/oauth2/token [none]
+[debug] [2026-06-19T19:21:46.761Z] >>> [apiv2][body] POST https://accounts.google.com/o/oauth2/token [omitted]
+[debug] [2026-06-19T19:21:47.105Z] Token Fetch Error: FirebaseError: FetchError: Invalid response body while trying to fetch https://accounts.google.com/o/oauth2/token: Premature close
+    at RetryOperation._fn (C:\Users\Kira8\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:317:88)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+[error] Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[debug] [2026-06-19T19:21:47.112Z] >>> [apiv2][query] POST https://auth.firebase.tools/attest [none]
+[debug] [2026-06-19T19:21:47.112Z] >>> [apiv2][body] POST https://auth.firebase.tools/attest {"session_id":"58fb2fbd-ee29-437e-994d-9f48b6fde051"}
+[debug] [2026-06-19T19:21:58.249Z] *** [apiv2] error from fetch(https://auth.firebase.tools/attest, {"headers":{},"method":"POST","body":"{\"session_id\":\"58fb2fbd-ee29-437e-994d-9f48b6fde051\"}"}): FetchError: request to https://auth.firebase.tools/attest failed, reason: read ECONNRESET
+[debug] [2026-06-19T19:22:03.273Z] Error: Timed out.
+    at Timeout._onTimeout (C:\Users\Kira8\AppData\Roaming\npm\node_modules\firebase-tools\lib\utils.js:313:49)
+    at listOnTimeout (node:internal/timers:605:17)
+    at process.processTimers (node:internal/timers:541:7)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2026-06-19T19:22:33.106Z] ----------------------------------------------------------------------
+[debug] [2026-06-19T19:22:33.114Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Kira8\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js login:ci
+[debug] [2026-06-19T19:22:33.115Z] CLI Version:   15.22.0
+[debug] [2026-06-19T19:22:33.115Z] Platform:      win32
+[debug] [2026-06-19T19:22:33.115Z] Node Version:  v24.17.0
+[debug] [2026-06-19T19:22:33.116Z] Detected Agent: unknown
+[debug] [2026-06-19T19:22:33.116Z] Time:          Fri Jun 19 2026 22:22:33 GMT+0300 (Москва, стандартное время)
+[debug] [2026-06-19T19:22:33.116Z] ----------------------------------------------------------------------
+[debug] 
+[warn] !  Authenticating with a `login:ci` token is deprecated and will be removed in a future major version of `firebase-tools`. Instead, use a service account key with `GOOGLE_APPLICATION_CREDENTIALS`: https://cloud.google.com/docs/authentication/getting-started 
+[info] 
+[info] Visit this URL on this device to log in:
+[info] https://accounts.google.com/o/oauth2/auth?client_id=563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com&scope=email%20openid%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloudplatformprojects.readonly%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Ffirebase%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloud-platform&response_type=code&state=256339893&redirect_uri=http%3A%2F%2Flocalhost%3A9005
+[info] 
+[info] Waiting for authentication...
+[debug] [2026-06-19T19:25:15.784Z] >>> [apiv2][query] POST https://accounts.google.com/o/oauth2/token [none]
+[debug] [2026-06-19T19:25:15.785Z] >>> [apiv2][body] POST https://accounts.google.com/o/oauth2/token [omitted]
+[debug] [2026-06-19T19:25:16.048Z] Token Fetch Error: FirebaseError: FetchError: Invalid response body while trying to fetch https://accounts.google.com/o/oauth2/token: Premature close
+    at RetryOperation._fn (C:\Users\Kira8\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:317:88)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+[error] Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[debug] [2026-06-19T19:25:16.084Z] >>> [apiv2][query] POST https://auth.firebase.tools/attest [none]
+[debug] [2026-06-19T19:25:16.085Z] >>> [apiv2][body] POST https://auth.firebase.tools/attest {"session_id":"56e06d74-c2b8-4634-b409-bce8eeea82af"}
+[debug] [2026-06-19T19:25:35.186Z] *** [apiv2] error from fetch(https://auth.firebase.tools/attest, {"headers":{},"method":"POST","body":"{\"session_id\":\"56e06d74-c2b8-4634-b409-bce8eeea82af\"}"}): FetchError: request to https://auth.firebase.tools/attest failed, reason: read ECONNRESET
+[debug] [2026-06-19T19:25:40.243Z] Error: Timed out.
+    at Timeout._onTimeout (C:\Users\Kira8\AppData\Roaming\npm\node_modules\firebase-tools\lib\utils.js:313:49)
+    at listOnTimeout (node:internal/timers:605:17)
+    at process.processTimers (node:internal/timers:541:7)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2026-06-19T19:29:26.802Z] ----------------------------------------------------------------------
+[debug] [2026-06-19T19:29:26.807Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Kira8\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js login
+[debug] [2026-06-19T19:29:26.808Z] CLI Version:   15.22.0
+[debug] [2026-06-19T19:29:26.808Z] Platform:      win32
+[debug] [2026-06-19T19:29:26.808Z] Node Version:  v24.17.0
+[debug] [2026-06-19T19:29:26.809Z] Detected Agent: unknown
+[debug] [2026-06-19T19:29:26.809Z] Time:          Fri Jun 19 2026 22:29:26 GMT+0300 (Москва, стандартное время)
+[debug] [2026-06-19T19:29:26.809Z] ----------------------------------------------------------------------
+[debug] 
+[info] i  The Firebase CLI’s MCP server feature can optionally make use of Gemini in Firebase. Learn more about Gemini in Firebase and how it uses your data: https://firebase.google.com/docs/gemini-in-firebase#how-gemini-in-firebase-uses-your-data 
+[info] 
+[info] i  Firebase optionally collects CLI and Emulator Suite usage and error reporting information to help improve our products. Data is collected in accordance with Google's privacy policy (https://policies.google.com/privacy) and is not used to identify you. 
+[info] 
+[info] Visit this URL on this device to log in:
+[info] https://accounts.google.com/o/oauth2/auth?client_id=563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com&scope=email%20openid%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloudplatformprojects.readonly%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Ffirebase%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloud-platform&response_type=code&state=88387838&redirect_uri=http%3A%2F%2Flocalhost%3A9005
+[info] 
+[info] Waiting for authentication...
