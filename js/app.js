@@ -132,6 +132,26 @@ function closeAllModals() {
     document.body.style.overflow = '';
 }
 
+// ==================== УПРАВЛЕНИЕ ДОСТУПОМ К УПРАЖНЕНИЯМ ====================
+function toggleExercisesAccess(user) {
+    const guestMessage = document.getElementById('guest-exercise-message');
+    const exerciseTabs = document.querySelector('.exercise-tabs');
+    const exerciseContents = document.querySelectorAll('.exercise-content');
+    
+    if (user) {
+        // Авторизован — показываем упражнения
+        if (guestMessage) guestMessage.style.display = 'none';
+        if (exerciseTabs) exerciseTabs.style.display = 'flex';
+        exerciseContents.forEach(el => el.style.display = '');
+        if (window.initExercises) window.initExercises();
+    } else {
+        // Не авторизован — показываем сообщение
+        if (guestMessage) guestMessage.style.display = 'block';
+        if (exerciseTabs) exerciseTabs.style.display = 'none';
+        exerciseContents.forEach(el => el.style.display = 'none');
+    }
+}
+
 // ==================== ВЫБОР ЯЗЫКА ====================
 function selectLanguage(language) {
     selectedLanguage = language;
@@ -149,7 +169,12 @@ function setupLanguageButtons() {
             const language = card.getAttribute('data-language');
             if (language) {
                 selectLanguage(language);
-                navigateToSection('exercises');
+                // Проверяем, авторизован ли пользователь, прежде чем перейти к упражнениям
+                if (auth.currentUser) {
+                    navigateToSection('exercises');
+                } else {
+                    showNotification('Для доступа к упражнениям войдите или зарегистрируйтесь', 'info');
+                }
             }
         });
     });
@@ -170,7 +195,6 @@ async function handleRegister(e) {
     try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const authUser = userCredential.user;
-        // Ждём, чтобы сессия установилась
         await new Promise(resolve => setTimeout(resolve, 500));
         const userData = {
             uid: authUser.uid,
@@ -215,6 +239,7 @@ async function handleRegister(e) {
         currentUser = userData;
         localStorage.setItem('currentUser', JSON.stringify({ uid: authUser.uid, email }));
         updateUIForUser();
+        toggleExercisesAccess(authUser);
         closeAllModals();
         hideLoading();
         showNotification('Регистрация успешна!', 'success');
@@ -258,6 +283,7 @@ async function handleLogin(e) {
         currentUser = userData;
         localStorage.setItem('currentUser', JSON.stringify({ uid: authUser.uid, email }));
         updateUIForUser();
+        toggleExercisesAccess(authUser);
         closeAllModals();
         hideLoading();
         showNotification('Вход выполнен!', 'success');
@@ -280,6 +306,7 @@ async function handleLogout() {
         currentAuthUser = null;
         localStorage.removeItem('currentUser');
         resetUIToGuest();
+        toggleExercisesAccess(null);
         if (mobileMenu?.classList.contains('active')) toggleMobileMenu();
         showNotification('Вы вышли из системы', 'info');
         navigateToSection('home');
@@ -347,7 +374,7 @@ function setupEventListeners() {
         startLearningBtn.addEventListener('click', () => navigateToSection('languages'));
     }
     
-    // ===== Кнопка "Узнать больше" =====
+    // Кнопка "Узнать больше"
     if (learnMoreBtn) {
         learnMoreBtn.addEventListener('click', function(e) {
             e.preventDefault();
@@ -358,7 +385,7 @@ function setupEventListeners() {
         });
     }
     
-    // Закрытие модального окна "Узнать больше" через кнопку "Закрыть" внутри
+    // Закрытие модального окна "Узнать больше"
     const closeLearnMoreBtn = document.getElementById('close-learn-more-btn');
     if (closeLearnMoreBtn) {
         closeLearnMoreBtn.addEventListener('click', function() {
@@ -377,13 +404,16 @@ function setupEventListeners() {
         }
     });
     
+    // Кнопки в сообщении для гостей
+    document.getElementById('guest-login-btn')?.addEventListener('click', () => openModal(loginModal));
+    document.getElementById('guest-register-btn')?.addEventListener('click', () => openModal(registerModal));
+    
     // Языковые кнопки
     setupLanguageButtons();
 }
 
 // ==================== ИНИЦИАЛИЗАЦИЯ ====================
 function initializeApp() {
-    // Следим за состоянием аутентификации
     onAuthStateChanged(auth, async (authUser) => {
         if (authUser) {
             const userDoc = await getDoc(doc(db, 'users', authUser.uid));
@@ -392,22 +422,22 @@ function initializeApp() {
                 currentAuthUser = authUser;
                 localStorage.setItem('currentUser', JSON.stringify({ uid: authUser.uid, email: authUser.email }));
                 updateUIForUser();
+                toggleExercisesAccess(authUser);
             } else {
                 await signOut(auth);
                 resetUIToGuest();
+                toggleExercisesAccess(null);
             }
         } else {
             currentUser = null;
             currentAuthUser = null;
             localStorage.removeItem('currentUser');
             resetUIToGuest();
+            toggleExercisesAccess(null);
         }
-        // Обновляем дашборд и упражнения после смены пользователя
         if (window.updateDashboard) window.updateDashboard();
-        if (window.initExercises) window.initExercises();
     });
     
-    // Восстанавливаем язык из localStorage
     const savedLang = localStorage.getItem('selectedLanguage');
     if (savedLang === 'english' || savedLang === 'spanish') {
         selectedLanguage = savedLang;
@@ -415,14 +445,11 @@ function initializeApp() {
         selectedLanguage = 'english';
     }
     
-    // Настраиваем обработчики событий
     setupEventListeners();
 }
 
-// Запуск при загрузке DOM
 document.addEventListener('DOMContentLoaded', initializeApp);
 
-// Экспорт глобальных функций
 window.app = {
     getSelectedLanguage: () => selectedLanguage,
     showLoading,

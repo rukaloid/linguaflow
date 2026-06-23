@@ -189,10 +189,8 @@ async function updateUserProgressAfterExercise(exerciseType, isCorrect) {
         } catch(e) { console.warn(e); }
     }
     
-    // Обновляем дашборд
     if (window.updateDashboard) window.updateDashboard();
     
-    // Проверка достижений
     if (window.checkAndAwardAchievements && auth.currentUser) {
         try {
             await window.checkAndAwardAchievements(dashboardData, auth.currentUser.uid);
@@ -201,7 +199,6 @@ async function updateUserProgressAfterExercise(exerciseType, isCorrect) {
         }
     }
     
-    // Обновляем цель на неделю
     if (window.updateWeeklyGoalProgress) {
         try {
             window.updateWeeklyGoalProgress();
@@ -434,6 +431,11 @@ function nextListening() {
 
 // ==================== ИНИЦИАЛИЗАЦИЯ ====================
 function initExercises() {
+    // Проверяем, авторизован ли пользователь
+    if (!auth.currentUser) {
+        // Если не авторизован, не загружаем упражнения
+        return;
+    }
     loadSelectedLanguage();
     loadExerciseState();
     document.querySelectorAll('.exercise-tab').forEach(tab => tab.addEventListener('click', () => switchExerciseTab(tab.dataset.tab)));

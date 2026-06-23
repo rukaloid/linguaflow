@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LinguaFlow - Изучайте языки с удовольствием</title>
+    <title>LinguaFlow - Изучайте языки con удовольствием</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/exercises.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -144,6 +144,18 @@
     <section class="exercises" id="exercises">
         <div class="container">
             <div class="section-title"><h2>Интерактивные упражнения</h2><p>Практикуйтесь с различными типами упражнений для улучшения всех языковых навыков.</p></div>
+            
+            <!-- Блок для гостей (неавторизованных) -->
+            <div id="guest-exercise-message" style="display: none; text-align: center; padding: 60px 20px; background: #1a1a1a; border-radius: 16px; border: 1px solid #2c2c2c;">
+                <i class="fas fa-lock" style="font-size: 4rem; color: #dc2626; margin-bottom: 20px;"></i>
+                <h2 style="color: #f3f4f6; margin-bottom: 15px;">Доступ к упражнениям ограничен</h2>
+                <p style="color: #9ca3af; margin-bottom: 25px;">Для прохождения упражнений и сохранения прогресса необходимо войти в аккаунт или зарегистрироваться.</p>
+                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                    <button class="btn btn-primary" id="guest-login-btn">Войти</button>
+                    <button class="btn btn-accent" id="guest-register-btn">Регистрация</button>
+                </div>
+            </div>
+
             <div class="exercise-tabs">
                 <button class="exercise-tab active" data-tab="multiple-choice"><i class="fas fa-list-ul"></i><span>Множественный выбор</span></button>
                 <button class="exercise-tab" data-tab="fill-blanks"><i class="fas fa-edit"></i><span>Заполнение пропусков</span></button>
@@ -201,7 +213,6 @@
                         </div>
                         <div class="goal-visual"></div>
                     </div>
-                    <!-- Кнопка "Изменить цель" удалена -->
                 </div>
                 <div class="dashboard-card achievements"><h3>Достижения</h3><div class="achievements-list" id="achievements-list">Загружаются...</div></div>
             </div>
@@ -353,7 +364,7 @@
     </script>
 
     <script>
-        // ===== Закрытие модального окна "Узнать больше" =====
+        // Закрытие модального окна "Узнать больше"
         document.addEventListener('DOMContentLoaded', function() {
             const closeBtn = document.getElementById('close-learn-more-btn');
             if (closeBtn) {
